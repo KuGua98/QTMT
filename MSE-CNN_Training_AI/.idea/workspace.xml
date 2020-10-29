@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="ee3ef93c-b8f0-48e2-863b-b66a3e12a042" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1hcvTqj0ano5RGclKvsyQZu8yd9" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\QTMT\MSE-CNN_Training_AI3\MSE-CNN_Training_AI\others" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\1\Desktop\pzx\VVC\VVC_test\MSE-CNN_Training_AI\generate_vvc" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.train_net_stage2">
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <module name="MSE-CNN_Training_AI" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\1\AppData\Local\conda\conda\envs\tensorflow\python.exe" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="extract_data" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="MSE-CNN_Training_AI" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\1\AppData\Local\conda\conda\envs\tensorflow\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/extract_data" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/extract_data/extract_data.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="generate_yuv" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="MSE-CNN_Training_AI" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\1\AppData\Local\conda\conda\envs\tensorflow\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/generate_vvc" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/generate_vvc/generate_yuv.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="MSE-CNN_Training_AI" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\1\AppData\Local\conda\conda\envs\tensorflow\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="D:\QTMT\MSE-CNN_Training_AI3\MSE-CNN_Training_AI\others\test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="train_net_stage2" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="MSE-CNN_Training_AI" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\1\AppData\Local\conda\conda\envs\tensorflow\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/train_net_stage2.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="train_net_test2" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="MSE-CNN_Training_AI" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\1\AppData\Local\conda\conda\envs\tensorflow\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\1\Desktop\pzx\VVC\VVC_test\MSE-CNN_Training_AI\train_net_stage2.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.train_net_stage2" />
+        <item itemvalue="Python.extract_data" />
+        <item itemvalue="Python.train_net_test2" />
+        <item itemvalue="Python.test" />
+        <item itemvalue="Python.generate_yuv" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ee3ef93c-b8f0-48e2-863b-b66a3e12a042" name="Default Changelist" comment="" />
+      <created>1600323205988</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1600323205988</updated>
+      <workItem from="1603869244130" duration="24150000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1600331050357">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1600331050357" />
+    <state x="713" y="325" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1603953169756">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="713" y="325" key="#com.intellij.fileTypes.FileTypeChooser/-1080.-833.1080.1890/0.0.1920.1050@0.0.1920.1050" timestamp="1603953169756" />
+    <state x="713" y="322" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1600331074755" />
+    <state width="1532" height="471" key="DebuggerActiveHint" timestamp="1603938788193">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1532" height="471" key="DebuggerActiveHint/-1080.-833.1080.1890/0.0.1920.1050@0.0.1920.1050" timestamp="1603938788193" />
+    <state width="1532" height="466" key="DebuggerActiveHint/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1603851045079" />
+    <state x="1004" y="281" key="FileChooserDialogImpl" timestamp="1602988298336">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1004" y="281" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1602988298336" />
+    <state width="1877" height="275" key="GridCell.Tab.0.bottom" timestamp="1603969262179">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1877" height="275" key="GridCell.Tab.0.bottom/-1080.-833.1080.1890/0.0.1920.1050@0.0.1920.1050" timestamp="1603969262179" />
+    <state width="1899" height="258" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1603854938209" />
+    <state width="1877" height="275" key="GridCell.Tab.0.center" timestamp="1603969262179">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1877" height="275" key="GridCell.Tab.0.center/-1080.-833.1080.1890/0.0.1920.1050@0.0.1920.1050" timestamp="1603969262179" />
+    <state width="1899" height="258" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1603854938208" />
+    <state width="1877" height="275" key="GridCell.Tab.0.left" timestamp="1603969262178">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1877" height="275" key="GridCell.Tab.0.left/-1080.-833.1080.1890/0.0.1920.1050@0.0.1920.1050" timestamp="1603969262178" />
+    <state width="1899" height="258" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1603854938208" />
+    <state width="1877" height="275" key="GridCell.Tab.0.right" timestamp="1603969262179">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1877" height="275" key="GridCell.Tab.0.right/-1080.-833.1080.1890/0.0.1920.1050@0.0.1920.1050" timestamp="1603969262179" />
+    <state width="1899" height="258" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1603854938209" />
+    <state width="1877" height="275" key="GridCell.Tab.1.bottom" timestamp="1603961854605">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1877" height="275" key="GridCell.Tab.1.bottom/-1080.-833.1080.1890/0.0.1920.1050@0.0.1920.1050" timestamp="1603961854605" />
+    <state width="1899" height="258" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1603854938209" />
+    <state width="1877" height="275" key="GridCell.Tab.1.center" timestamp="1603961854605">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1877" height="275" key="GridCell.Tab.1.center/-1080.-833.1080.1890/0.0.1920.1050@0.0.1920.1050" timestamp="1603961854605" />
+    <state width="1899" height="258" key="GridCell.Tab.1.center/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1603854938209" />
+    <state width="1877" height="275" key="GridCell.Tab.1.left" timestamp="1603961854605">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1877" height="275" key="GridCell.Tab.1.left/-1080.-833.1080.1890/0.0.1920.1050@0.0.1920.1050" timestamp="1603961854605" />
+    <state width="1899" height="258" key="GridCell.Tab.1.left/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1603854938209" />
+    <state width="1877" height="275" key="GridCell.Tab.1.right" timestamp="1603961854605">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1877" height="275" key="GridCell.Tab.1.right/-1080.-833.1080.1890/0.0.1920.1050@0.0.1920.1050" timestamp="1603961854605" />
+    <state width="1899" height="258" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1603854938209" />
+    <state x="461" y="163" key="SettingsEditor" timestamp="1603941143004">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="461" y="163" key="SettingsEditor/-1080.-833.1080.1890/0.0.1920.1050@0.0.1920.1050" timestamp="1603941143004" />
+    <state x="461" y="161" key="SettingsEditor/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1603851487405" />
+    <state width="751" height="519" key="XDebugger.FullValuePopup" timestamp="1603678755503">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="751" height="519" key="XDebugger.FullValuePopup/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1603678755503" />
+    <state x="331" y="83" width="1096" height="707" key="dock-window-1" timestamp="1603956423432">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="331" y="83" width="1096" height="707" key="dock-window-1/-1080.-833.1080.1890/0.0.1920.1050@0.0.1920.1050" timestamp="1603956423432" />
+    <state x="22" y="0" width="1018" height="991" key="dock-window-1/0.0.1280.984@0.0.1280.984" timestamp="1603005775754" />
+    <state x="1920" y="147" width="1296" height="714" key="dock-window-1/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1603715634396" />
+    <state x="-1016" y="-332" width="1096" height="707" key="dock-window-2" timestamp="1603956423432">
+      <screen x="-1080" y="-833" width="1080" height="1890" />
+    </state>
+    <state x="-1016" y="-332" width="1096" height="707" key="dock-window-2/-1080.-833.1080.1890/0.0.1920.1050@0.0.1920.1050" timestamp="1603956423432" />
+    <state x="1920" y="0" width="1296" height="714" key="dock-window-2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1603715992894" />
+    <state x="984" y="229" width="672" height="678" key="search.everywhere.popup" timestamp="1603676697027">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="984" y="229" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1603676697027" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/resNet.py</url>
+          <line>96</line>
+          <option name="timeStamp" value="494" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/train_net_stage2.py</url>
+          <line>71</line>
+          <option name="timeStamp" value="519" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/others/test.py</url>
+          <line>155</line>
+          <option name="timeStamp" value="520" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/others/test.py</url>
+          <line>101</line>
+          <option name="timeStamp" value="521" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/others/test.py</url>
+          <line>166</line>
+          <option name="timeStamp" value="522" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/others/test.py</url>
+          <line>183</line>
+          <option name="timeStamp" value="523" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/train_net_stage2.py</url>
+          <line>83</line>
+          <option name="timeStamp" value="525" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/extract_data/extract_data.py</url>
+          <line>14</line>
+          <option name="timeStamp" value="530" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/extract_data/extract_data.py</url>
+          <line>21</line>
+          <option name="timeStamp" value="531" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/extract_data/extract_data.py</url>
+          <line>366</line>
+          <option name="timeStamp" value="532" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/extract_data/extract_data.py</url>
+          <line>312</line>
+          <option name="timeStamp" value="533" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/extract_data/extract_data.py</url>
+          <line>286</line>
+          <option name="timeStamp" value="534" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/extract_data/extract_data.py</url>
+          <line>308</line>
+          <option name="timeStamp" value="535" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/net_cu.py</url>
+          <line>38</line>
+          <option name="timeStamp" value="536" />
+        </line-breakpoint>
+      </breakpoints>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="loss" />
+        <watch expression="accuracy" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/MSE_CNN_Training_AI$extract_data.coverage" NAME="extract_data Coverage Results" MODIFIED="1603941429694" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/extract_data" />
+    <SUITE FILE_PATH="coverage/MSE_CNN_Training_AI$train_net_stage2.coverage" NAME="train_net_stage2 Coverage Results" MODIFIED="1603961846048" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+</project>

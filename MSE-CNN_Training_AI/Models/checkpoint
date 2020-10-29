@@ -1,0 +1,6 @@
+model_checkpoint_path: "model_64x64.dat"
+all_model_checkpoint_paths: "model_64x64_200.dat"
+all_model_checkpoint_paths: "model_64x64_300.dat"
+all_model_checkpoint_paths: "model_64x64_400.dat"
+all_model_checkpoint_paths: "model_64x64_500.dat"
+all_model_checkpoint_paths: "model_64x64.dat"

@@ -1,0 +1,6 @@
+model_checkpoint_path: "model_res2_91000.dat"
+all_model_checkpoint_paths: "model_res2_87000.dat"
+all_model_checkpoint_paths: "model_res2_88000.dat"
+all_model_checkpoint_paths: "model_res2_89000.dat"
+all_model_checkpoint_paths: "model_res2_90000.dat"
+all_model_checkpoint_paths: "model_res2_91000.dat"
