@@ -12,7 +12,7 @@ YUV_TRAIN_PATH_ORI = 'D:/QTMT/YUV_HIF_train/'  # path storing YUV files
 INFO_TRAIN_PATH = 'D:/QTMT/script/train/dxc/1 f/' # path storing Info_XX.dat files for All-Intra configuration
 
 YUV_VALID_PATH_ORI = 'D:/QTMT/YUV_HIF_valid/'  # path storing YUV files
-INFO_VALID_PATH = 'D:/QTMT/script/valid/Vaild_All/' # path storing Info_XX.dat files for All-Intra configuration
+INFO_VALID_PATH = 'D:/QTMT/SAMPLES_VALID/Vaild_All/' # path storing Info_XX.dat files for All-Intra configuration
 # ----------------------------------------------------------------------------------------------------------------------
 
 INDEX_LIST_TRAIN = 1
@@ -295,16 +295,23 @@ def generate_data(yuv_path_ori, info_path, yuv_name_list_full,  yuv_width_list_f
     elif MODE == 2:
         MODE_NAME = '_valid'
 
-    h5f = h5py.File('Samples'+MODE_NAME+'.h5','a')
-    for i in range(len(NAME_LIST)):
-        name = NAME_LIST[i]
-        length = SAMPLE_LENGTH_LIST[i]
-        h5f.create_dataset(name, (100, length), maxshape=(None, length), dtype='float32')
-
-    amount_all_list =  [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    amount_record_list = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    # 对整个数据集，记录其CU数量
+    amount_all_list_dataset = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    amount_record_list_dataset = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
     for i_seq in range(n_seq):
+
+        # 对每个序列，记录其CU的数量
+        amount_all_list_seq = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        amount_record_list_seq = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+        Sample_Name = yuv_name_list_full[i_seq]
+        h5f = h5py.File('Samples_'+ str(Sample_Name) + MODE_NAME + '.h5', 'a')
+        for i in range(len(NAME_LIST)):
+            name = NAME_LIST[i]
+            length = SAMPLE_LENGTH_LIST[i]
+            h5f.create_dataset(name, (100, length), maxshape=(None, length), dtype='float32')
+
         width =  yuv_width_list_full[i_seq]
         height = yuv_height_list_full[i_seq]
         n_frame = get_num_YUV420_frame(yuv_file_list[i_seq]+'.yuv', width, height)
@@ -340,26 +347,35 @@ def generate_data(yuv_path_ori, info_path, yuv_name_list_full,  yuv_width_list_f
                 cu_info_buff, cu_amount = read_info_frame(fid_info_list[i_qp], i_frame, cu_index[i_qp], qp_list[i_qp])
                 cu_index[i_qp] = cu_index[i_qp] + cu_amount
                 cu_info = np.reshape(cu_info_buff, (cu_amount,13))
-                amount_all, amount_record = write_data(frame_Y, cu_info, h5f, amount_all_list, amount_record_list, MODE)
+                amount_all, amount_record = write_data(frame_Y, cu_info, h5f, amount_all_list_seq, amount_record_list_seq, MODE)
                 for j in range(len(amount_all)):
-                    amount_all_list[j] = amount_all_list[j] + amount_all[j]
-                    amount_record_list[j] = amount_record_list[j] + amount_record[j]
+                    amount_all_list_seq[j] = amount_all_list_seq[j] + amount_all[j]
+                    amount_record_list_seq[j] = amount_record_list_seq[j] + amount_record[j]
 
+        # 记录每个序列各个size的CU数量
         print(yuv_name_list_full[i_seq] + '.yuv' + ': Generate Samples End ')
-
-        total_amount = open("total_amount" + MODE_NAME + ".txt", 'w')
-        record_amount = open("record_amount" + MODE_NAME + ".txt", 'w')
+        total_amount = open("total_"+ Sample_Name + MODE_NAME + ".txt", 'w')
+        record_amount = open("record_"+ Sample_Name + MODE_NAME + ".txt", 'w')
         for q in range(len(NAME_LIST)):
-            print('%s : %d samples.' % (NAME_LIST[q], amount_all_list[q]))
-            print('%s : %d samples.' % (NAME_LIST[q], amount_record_list[q]))
-            total_amount.write(NAME_LIST[q] + ' : ' + str(amount_all_list[q]) + ' samples. \n')
-            record_amount.write(NAME_LIST[q] + ' : ' + str(amount_record_list[q]) + ' samples completed. \n')
+            print('%s : %d samples.' % (NAME_LIST[q], amount_all_list_seq[q]))
+            print('%s : %d samples.' % (NAME_LIST[q], amount_record_list_seq[q]))
+            total_amount.write(NAME_LIST[q] + ' : ' + str(amount_all_list_seq[q]) + ' samples. \n')
+            record_amount.write(NAME_LIST[q] + ' : ' + str(amount_record_list_seq[q]) + ' samples completed. \n')
 
+        # 记录整个数据集的CU数量
+        for j in range(len(amount_all_list_seq)):
+            amount_all_list_dataset[j] = amount_all_list_dataset[j] + amount_all_list_seq[j]
+            amount_record_list_dataset[j] = amount_record_list_dataset[j] + amount_record_list_seq[j]
+        h5f.close()
+
+
+    total_amount = open("total_Dataset"+ MODE_NAME + ".txt", 'w')
+    record_amount = open("record_Dataset"+ Sample_Name + MODE_NAME + ".txt", 'w')
     for q in range(len(NAME_LIST)):
-        print('%s : %d samples.' % (NAME_LIST[q], amount_all_list[q]))
-        print('%s : %d samples.' % (NAME_LIST[q], amount_record_list[q]))
-        total_amount.write(NAME_LIST[q]+' : '+str(amount_all_list[q])+' samples. \n')
-        record_amount.write(NAME_LIST[q] + ' : ' + str(amount_record_list[q]) + ' samples completed. \n')
+        print('%s : %d samples.' % (NAME_LIST[q], amount_all_list_dataset[q]))
+        print('%s : %d samples.' % (NAME_LIST[q], amount_record_list_dataset[q]))
+        total_amount.write(NAME_LIST[q]+' : '+str(amount_all_list_dataset[q])+' samples. \n')
+        record_amount.write(NAME_LIST[q] + ' : ' + str(amount_record_list_dataset[q]) + ' samples completed. \n')
     total_amount.close()
     record_amount.close()
 
