@@ -83,7 +83,7 @@ def net_32x32(x, y, qp, global_step, learning_rate_init, decay_rate, decay_step)
     y_probabilty = sub.sub_net_32(h_condc, qp)
 
     y_predict = tf.argmax(y_probabilty, axis=1)  # 返回最大值索引
-    y_one_hot = tf.one_hot(indices=y_predict, depth=2)  # 转换为one—hot vector
+    y_one_hot = tf.one_hot(indices=y_predict, depth=6)  # 转换为one—hot vector
 
     loss_32_ce = -tf.reduce_sum(tf.multiply(np.power(p_32x32, adjust_scalar_else).astype(np.float32),tf.multiply(y_image, tf.log(y_probabilty + 1e-12)))) / np.sum(np.power(p_32x32, adjust_scalar_else))
 
@@ -100,7 +100,7 @@ def net_32x32(x, y, qp, global_step, learning_rate_init, decay_rate, decay_step)
 
 
 
-def net_16x16_32x16(x, y, learning_rate_init, qp, decay_rate):
+def net_16x16_32x16(x, y, qp, global_step, learning_rate_init, decay_rate, decay_step):
     # 归一化
     CU_WIDTH = x.shape[1]
     x = tf.scalar_mul(1.0 / 255.0, x)
@@ -114,9 +114,148 @@ def net_16x16_32x16(x, y, learning_rate_init, qp, decay_rate):
 
     h_cov = sub.overlap_conv(x_image, 3, 3, 1, 16)
     h_condc = res.condc_lumin_16(h_cov)
+    y_probabilty = sub.sub_net_16x16_32x16(h_condc, qp)
+    y_predict = tf.argmax(y_probabilty, axis=1)  # 返回最大值索引
 
 
-    h_sub = sub.sub_net_16x16_32x16(h_condc, qp)
+    if CU_WIDTH == 16:
+        y_one_hot = tf.one_hot(indices=y_predict, depth=6)  # 转换为one—hot vector
+        loss_16x16_ce = -tf.reduce_sum(tf.multiply(np.power(p_16x16, adjust_scalar_else).astype(np.float32),tf.multiply(y_image, tf.log(y_probabilty + 1e-12)))) / np.sum(np.power(p_16x16, adjust_scalar_else))
+        total_loss_16x16 = loss_16x16_ce
+        accuracy_16x16 = tf.reduce_sum(tf.multiply(y_image, y_one_hot)) / tf.reduce_sum(y_image)
+        learning_rate_current = tf.train.exponential_decay(learning_rate_init, global_step, decay_step, decay_rate,staircase=True)
+        train_step = tf.train.AdamOptimizer(learning_rate_current).minimize(total_loss_16x16)
+        opt_vars_all = [v for v in tf.trainable_variables()]
+        opt_vars_res1 = tf.trainable_variables(scope='res_unit4')
+
+        return y_probabilty, y_predict, y_one_hot, total_loss_16x16, accuracy_16x16, learning_rate_current, train_step, opt_vars_all, opt_vars_res1
+
+    elif CU_WIDTH == 32:
+        y_one_hot = tf.one_hot(indices=y_predict, depth=5)  # 转换为one—hot vector
+        loss_32x16_ce = -tf.reduce_sum(tf.multiply(np.power(p_32x16, adjust_scalar_else).astype(np.float32), tf.multiply(y_image, tf.log(y_probabilty + 1e-12)))) / np.sum(np.power(p_32x16, adjust_scalar_else))
+        total_loss_32x16 = loss_32x16_ce
+        accuracy_32x16 = tf.reduce_sum(tf.multiply(y_image, y_one_hot)) / tf.reduce_sum(y_image)
+        learning_rate_current = tf.train.exponential_decay(learning_rate_init, global_step, decay_step, decay_rate,staircase=True)
+        train_step = tf.train.AdamOptimizer(learning_rate_current).minimize(total_loss_32x16)
+        opt_vars_all = [v for v in tf.trainable_variables()]
+        opt_vars_res1 = tf.trainable_variables(scope='res_unit4')
+
+        return y_probabilty, y_predict, y_one_hot, total_loss_32x16, accuracy_32x16, learning_rate_current, train_step, opt_vars_all, opt_vars_res1
+
+
+def net_8x8_16x8_32x8(x, y, qp, global_step, learning_rate_init, decay_rate, decay_step):
+    # 归一化
+    CU_WIDTH = x.shape[1]
+    x = tf.scalar_mul(1.0 / 255.0, x)
+    if CU_WIDTH==8:
+        x_image = tf.reshape(x, [-1, 8, 8, 1])
+        y_image = tf.reshape(y, [-1, 3])
+    elif CU_WIDTH==16:
+        x_image = tf.reshape(x, [-1, 16, 8, 1])
+        y_image = tf.reshape(y, [-1, 4])
+    elif CU_WIDTH == 32:
+        x_image = tf.reshape(x, [-1, 32, 8, 1])
+        y_image = tf.reshape(y, [-1, 4])
+
+    h_cov = sub.overlap_conv(x_image, 3, 3, 1, 16)
+    h_condc = res.condc_lumin_8(h_cov)
+    y_probabilty = sub.sub_net_8x8_16x8_32x8(h_condc, qp)
+    y_predict = tf.argmax(y_probabilty, axis=1)  # 返回最大值索引
+
+
+    if CU_WIDTH == 8:
+        y_one_hot = tf.one_hot(indices=y_predict, depth=3)  # 转换为one—hot vector
+        loss_8x8_ce = -tf.reduce_sum(tf.multiply(np.power(p_8x8, adjust_scalar_else).astype(np.float32),tf.multiply(y_image, tf.log(y_probabilty + 1e-12)))) / np.sum(np.power(p_8x8, adjust_scalar_else))
+        total_loss_8x8 = loss_8x8_ce
+        accuracy_8x8 = tf.reduce_sum(tf.multiply(y_image, y_one_hot)) / tf.reduce_sum(y_image)
+        learning_rate_current = tf.train.exponential_decay(learning_rate_init, global_step, decay_step, decay_rate,staircase=True)
+        train_step = tf.train.AdamOptimizer(learning_rate_current).minimize(total_loss_8x8)
+        opt_vars_all = [v for v in tf.trainable_variables()]
+        opt_vars_res1 = tf.trainable_variables(scope='res_unit5')
+
+        return y_probabilty, y_predict, y_one_hot, total_loss_8x8, accuracy_8x8, learning_rate_current, train_step, opt_vars_all, opt_vars_res1
+
+    elif CU_WIDTH == 16:
+        y_one_hot = tf.one_hot(indices=y_predict, depth=4)  # 转换为one—hot vector
+        loss_16x8_ce = -tf.reduce_sum(tf.multiply(np.power(p_16x8, adjust_scalar_else).astype(np.float32), tf.multiply(y_image, tf.log(y_probabilty + 1e-12)))) / np.sum(np.power(p_16x8, adjust_scalar_else))
+        total_loss_16x8 = loss_16x8_ce
+        accuracy_16x8 = tf.reduce_sum(tf.multiply(y_image, y_one_hot)) / tf.reduce_sum(y_image)
+        learning_rate_current = tf.train.exponential_decay(learning_rate_init, global_step, decay_step, decay_rate,staircase=True)
+        train_step = tf.train.AdamOptimizer(learning_rate_current).minimize(total_loss_16x8)
+        opt_vars_all = [v for v in tf.trainable_variables()]
+        opt_vars_res1 = tf.trainable_variables(scope='res_unit5')
+
+        return y_probabilty, y_predict, y_one_hot, total_loss_16x8, accuracy_16x8, learning_rate_current, train_step, opt_vars_all, opt_vars_res1
+
+    elif CU_WIDTH == 32:
+        y_one_hot = tf.one_hot(indices=y_predict, depth=4)  # 转换为one—hot vector
+        loss_32x8_ce = -tf.reduce_sum(tf.multiply(np.power(p_32x8, adjust_scalar_else).astype(np.float32), tf.multiply(y_image, tf.log(y_probabilty + 1e-12)))) / np.sum(np.power(p_32x8, adjust_scalar_else))
+        total_loss_32x8 = loss_32x8_ce
+        accuracy_32x8 = tf.reduce_sum(tf.multiply(y_image, y_one_hot)) / tf.reduce_sum(y_image)
+        learning_rate_current = tf.train.exponential_decay(learning_rate_init, global_step, decay_step, decay_rate,staircase=True)
+        train_step = tf.train.AdamOptimizer(learning_rate_current).minimize(total_loss_32x8)
+        opt_vars_all = [v for v in tf.trainable_variables()]
+        opt_vars_res1 = tf.trainable_variables(scope='res_unit5')
+
+        return y_probabilty, y_predict, y_one_hot, total_loss_32x8, accuracy_32x8, learning_rate_current, train_step, opt_vars_all, opt_vars_res1
+
+
+def net_8x4_16x4_32x4(x, y, qp, global_step, learning_rate_init, decay_rate, decay_step):
+    # 归一化
+    CU_WIDTH = x.shape[1]
+    x = tf.scalar_mul(1.0 / 255.0, x)
+    if CU_WIDTH==8:
+        x_image = tf.reshape(x, [-1, 8, 4, 1])
+        y_image = tf.reshape(y, [-1, 2])
+    elif CU_WIDTH==16:
+        x_image = tf.reshape(x, [-1, 16, 4, 1])
+        y_image = tf.reshape(y, [-1, 3])
+    elif CU_WIDTH == 32:
+        x_image = tf.reshape(x, [-1, 32, 4, 1])
+        y_image = tf.reshape(y, [-1, 3])
+
+    h_cov = sub.overlap_conv(x_image, 3, 3, 1, 16)
+    h_condc = res.condc_lumin_4(h_cov)
+    y_probabilty = sub.sub_net_8x4_16x4_32x4(h_condc, qp)
+    y_predict = tf.argmax(y_probabilty, axis=1)  # 返回最大值索引
+
+
+    if CU_WIDTH == 8:
+        y_one_hot = tf.one_hot(indices=y_predict, depth=2)  # 转换为one—hot vector
+        loss_8x4_ce = -tf.reduce_sum(tf.multiply(np.power(p_8x4, adjust_scalar_else).astype(np.float32),tf.multiply(y_image, tf.log(y_probabilty + 1e-12)))) / np.sum(np.power(p_8x4, adjust_scalar_else))
+        total_loss_8x4 = loss_8x4_ce
+        accuracy_8x4 = tf.reduce_sum(tf.multiply(y_image, y_one_hot)) / tf.reduce_sum(y_image)
+        learning_rate_current = tf.train.exponential_decay(learning_rate_init, global_step, decay_step, decay_rate,staircase=True)
+        train_step = tf.train.AdamOptimizer(learning_rate_current).minimize(total_loss_8x4)
+        opt_vars_all = [v for v in tf.trainable_variables()]
+        opt_vars_res1 = tf.trainable_variables(scope='res_unit6')
+
+        return y_probabilty, y_predict, y_one_hot, total_loss_8x4, accuracy_8x4, learning_rate_current, train_step, opt_vars_all, opt_vars_res1
+
+    elif CU_WIDTH == 16:
+        y_one_hot = tf.one_hot(indices=y_predict, depth=3)  # 转换为one—hot vector
+        loss_16x4_ce = -tf.reduce_sum(tf.multiply(np.power(p_16x4, adjust_scalar_else).astype(np.float32), tf.multiply(y_image, tf.log(y_probabilty + 1e-12)))) / np.sum(np.power(p_16x4, adjust_scalar_else))
+        total_loss_16x4 = loss_16x4_ce
+        accuracy_16x4 = tf.reduce_sum(tf.multiply(y_image, y_one_hot)) / tf.reduce_sum(y_image)
+        learning_rate_current = tf.train.exponential_decay(learning_rate_init, global_step, decay_step, decay_rate,staircase=True)
+        train_step = tf.train.AdamOptimizer(learning_rate_current).minimize(total_loss_16x4)
+        opt_vars_all = [v for v in tf.trainable_variables()]
+        opt_vars_res1 = tf.trainable_variables(scope='res_unit6')
+
+        return y_probabilty, y_predict, y_one_hot, total_loss_16x4, accuracy_16x4, learning_rate_current, train_step, opt_vars_all, opt_vars_res1
+
+    elif CU_WIDTH == 32:
+        y_one_hot = tf.one_hot(indices=y_predict, depth=3)  # 转换为one—hot vector
+        loss_32x4_ce = -tf.reduce_sum(tf.multiply(np.power(p_32x4, adjust_scalar_else).astype(np.float32), tf.multiply(y_image, tf.log(y_probabilty + 1e-12)))) / np.sum(np.power(p_32x4, adjust_scalar_else))
+        total_loss_32x4 = loss_32x4_ce
+        accuracy_32x4 = tf.reduce_sum(tf.multiply(y_image, y_one_hot)) / tf.reduce_sum(y_image)
+        learning_rate_current = tf.train.exponential_decay(learning_rate_init, global_step, decay_step, decay_rate,staircase=True)
+        train_step = tf.train.AdamOptimizer(learning_rate_current).minimize(total_loss_32x4)
+        opt_vars_all = [v for v in tf.trainable_variables()]
+        opt_vars_res1 = tf.trainable_variables(scope='res_unit6')
+
+        return y_probabilty, y_predict, y_one_hot, total_loss_32x4, accuracy_32x4, learning_rate_current, train_step, opt_vars_all, opt_vars_res1
+
 
 
 
