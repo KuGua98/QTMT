@@ -23,9 +23,9 @@ YUV_NAME_TRAIN_LIST_FULL = di.YUV_NAME_LIST_FULL[:INDEX_LIST_TRAIN]
 YUV_WIDTH_TRAIN_LIST_FULL = di.YUV_WIDTH_LIST_FULL[:INDEX_LIST_TRAIN]
 YUV_HEIGHT_TRAIN_LIST_FULL = di.YUV_HEIGHT_LIST_FULL[:INDEX_LIST_TRAIN]
 
-YUV_NAME_VALID_LIST_FULL = di.YUV_NAME_LIST_FULL[INDEX_LIST_VALID[0]:INDEX_LIST_VALID[26]]
-YUV_WIDTH_VALID_LIST_FULL = di.YUV_WIDTH_LIST_FULL[INDEX_LIST_VALID[0]:INDEX_LIST_VALID[26]]
-YUV_HEIGHT_VALID_LIST_FULL = di.YUV_HEIGHT_LIST_FULL[INDEX_LIST_VALID[0]:INDEX_LIST_VALID[26]]
+YUV_NAME_VALID_LIST_FULL = di.YUV_NAME_LIST_FULL[INDEX_LIST_VALID[0]+4:INDEX_LIST_VALID[0]+6]
+YUV_WIDTH_VALID_LIST_FULL = di.YUV_WIDTH_LIST_FULL[INDEX_LIST_VALID[0]+4:INDEX_LIST_VALID[0]+6]
+YUV_HEIGHT_VALID_LIST_FULL = di.YUV_HEIGHT_LIST_FULL[INDEX_LIST_VALID[0]+4:INDEX_LIST_VALID[0]+6]
 # YUV_NAME_VALID_LIST_FULL = di.YUV_NAME_LIST_FULL[INDEX_LIST_TRAIN:INDEX_LIST_VALID]
 # YUV_WIDTH_VALID_LIST_FULL = di.YUV_WIDTH_LIST_FULL[INDEX_LIST_TRAIN:INDEX_LIST_VALID]
 # YUV_HEIGHT_VALID_LIST_FULL = di.YUV_HEIGHT_LIST_FULL[INDEX_LIST_TRAIN:INDEX_LIST_VALID]
@@ -106,18 +106,21 @@ def read_info_frame(fid, frame_index, cu_index, qp):
     info_buf2 = np.frombuffer(fid.read(48), dtype = np.float)
     info_buf = np.append(info_buf1, info_buf2)
 
-    while info_buf[0] == frame_index:
-        # info_buf.append(qp)
-        info_buf = np.append(info_buf, qp)
-        info = np.append(info, info_buf)
-        icount = icount + 1
+    if len(info_buf1) != 0:
+        while info_buf[0] == frame_index:
+            # info_buf.append(qp)
+            info_buf = np.append(info_buf, qp)
+            info = np.append(info, info_buf)
+            icount = icount + 1
 
-        info_buf1 = np.frombuffer(fid.read(12), dtype=np.uint16).astype(np.float)
-        info_buf2 = np.frombuffer(fid.read(48), dtype=np.float)
-        info_buf = np.append(info_buf1, info_buf2)
+            info_buf1 = np.frombuffer(fid.read(12), dtype=np.uint16).astype(np.float)
+            info_buf2 = np.frombuffer(fid.read(48), dtype=np.float)
+            info_buf = np.append(info_buf1, info_buf2)
 
-        if len(info_buf1) == 0:
-            break
+            if len(info_buf1) == 0:
+                break
+    else:
+        print("Have not coded complete")
 
     return info, icount
 
@@ -344,8 +347,14 @@ def generate_data(yuv_path_ori, info_path, yuv_name_list_full,  yuv_width_list_f
 
         print(yuv_name_list_full[i_seq] + '.yuv' + ': Generate Samples End ')
 
-    total_amount = open("total_amount"+MODE_NAME+".txt",'w')
-    record_amount = open("record_amount"+MODE_NAME+".txt", 'w')
+        total_amount = open("total_amount" + MODE_NAME + ".txt", 'w')
+        record_amount = open("record_amount" + MODE_NAME + ".txt", 'w')
+        for q in range(len(NAME_LIST)):
+            print('%s : %d samples.' % (NAME_LIST[q], amount_all_list[q]))
+            print('%s : %d samples.' % (NAME_LIST[q], amount_record_list[q]))
+            total_amount.write(NAME_LIST[q] + ' : ' + str(amount_all_list[q]) + ' samples. \n')
+            record_amount.write(NAME_LIST[q] + ' : ' + str(amount_record_list[q]) + ' samples completed. \n')
+
     for q in range(len(NAME_LIST)):
         print('%s : %d samples.' % (NAME_LIST[q], amount_all_list[q]))
         print('%s : %d samples.' % (NAME_LIST[q], amount_record_list[q]))
