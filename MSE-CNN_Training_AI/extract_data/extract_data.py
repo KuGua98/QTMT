@@ -15,20 +15,18 @@ YUV_VALID_PATH_ORI = 'D:/QTMT/YUV_HIF_valid/'  # path storing YUV files
 INFO_VALID_PATH = 'D:/QTMT/SAMPLES_VALID/Vaild_All/' # path storing Info_XX.dat files for All-Intra configuration
 # ----------------------------------------------------------------------------------------------------------------------
 
-INDEX_LIST_TRAIN = 1
+INDEX_LIST_TRAIN = 164
+INDEX_LIST_VALID = 190
 # INDEX_LIST_TRAIN = list(range(0,164))
-INDEX_LIST_VALID = list(range(164,191))
+# INDEX_LIST_VALID = list(range(164,190))
 
 YUV_NAME_TRAIN_LIST_FULL = di.YUV_NAME_LIST_FULL[:INDEX_LIST_TRAIN]
 YUV_WIDTH_TRAIN_LIST_FULL = di.YUV_WIDTH_LIST_FULL[:INDEX_LIST_TRAIN]
 YUV_HEIGHT_TRAIN_LIST_FULL = di.YUV_HEIGHT_LIST_FULL[:INDEX_LIST_TRAIN]
 
-YUV_NAME_VALID_LIST_FULL = di.YUV_NAME_LIST_FULL[INDEX_LIST_VALID[0]+4:INDEX_LIST_VALID[0]+6]
-YUV_WIDTH_VALID_LIST_FULL = di.YUV_WIDTH_LIST_FULL[INDEX_LIST_VALID[0]+4:INDEX_LIST_VALID[0]+6]
-YUV_HEIGHT_VALID_LIST_FULL = di.YUV_HEIGHT_LIST_FULL[INDEX_LIST_VALID[0]+4:INDEX_LIST_VALID[0]+6]
-# YUV_NAME_VALID_LIST_FULL = di.YUV_NAME_LIST_FULL[INDEX_LIST_TRAIN:INDEX_LIST_VALID]
-# YUV_WIDTH_VALID_LIST_FULL = di.YUV_WIDTH_LIST_FULL[INDEX_LIST_TRAIN:INDEX_LIST_VALID]
-# YUV_HEIGHT_VALID_LIST_FULL = di.YUV_HEIGHT_LIST_FULL[INDEX_LIST_TRAIN:INDEX_LIST_VALID]
+YUV_NAME_VALID_LIST_FULL = di.YUV_NAME_LIST_FULL[INDEX_LIST_TRAIN:INDEX_LIST_VALID]
+YUV_WIDTH_VALID_LIST_FULL = di.YUV_WIDTH_LIST_FULL[INDEX_LIST_TRAIN:INDEX_LIST_VALID]
+YUV_HEIGHT_VALID_LIST_FULL = di.YUV_HEIGHT_LIST_FULL[INDEX_LIST_TRAIN:INDEX_LIST_VALID]
 
 QP_LIST = [22, 27, 32, 37]
 # QP_LIST = [22]
@@ -332,27 +330,22 @@ def generate_data(yuv_path_ori, info_path, yuv_name_list_full,  yuv_width_list_f
         for i_frame in range(int(encoded_frame)):
 
             print('%d frame'%i_frame)
-
             frame_YUV = read_YUV420_frame(fid_yuv, width, height, i_frame)
             frame_Y = frame_YUV._Y
             # frame_U = frame_YUV._U
             # frame_V = frame_YUV._V
-            if i_frame == 0:
-                Y_0 = frame_Y
-            if i_frame == 1:
-                Y_8 = frame_Y
-                Y_diff = Y_8 - Y_0
 
             for i_qp in range(n_qp):
                 cu_info_buff, cu_amount = read_info_frame(fid_info_list[i_qp], i_frame, cu_index[i_qp], qp_list[i_qp])
                 cu_index[i_qp] = cu_index[i_qp] + cu_amount
                 cu_info = np.reshape(cu_info_buff, (cu_amount,13))
                 amount_all, amount_record = write_data(frame_Y, cu_info, h5f, amount_all_list_seq, amount_record_list_seq, MODE)
+                # 记录每个序列各个size的CU数量
                 for j in range(len(amount_all)):
                     amount_all_list_seq[j] = amount_all_list_seq[j] + amount_all[j]
                     amount_record_list_seq[j] = amount_record_list_seq[j] + amount_record[j]
 
-        # 记录每个序列各个size的CU数量
+        # 输出每个序列的CU数量信息
         print(yuv_name_list_full[i_seq] + '.yuv' + ': Generate Samples End ')
         total_amount = open("total_"+ Sample_Name + MODE_NAME + ".txt", 'w')
         record_amount = open("record_"+ Sample_Name + MODE_NAME + ".txt", 'w')
@@ -368,7 +361,7 @@ def generate_data(yuv_path_ori, info_path, yuv_name_list_full,  yuv_width_list_f
             amount_record_list_dataset[j] = amount_record_list_dataset[j] + amount_record_list_seq[j]
         h5f.close()
 
-
+    # 输出整个数据集的CU数量信息
     total_amount = open("total_Dataset"+ MODE_NAME + ".txt", 'w')
     record_amount = open("record_Dataset"+ Sample_Name + MODE_NAME + ".txt", 'w')
     for q in range(len(NAME_LIST)):

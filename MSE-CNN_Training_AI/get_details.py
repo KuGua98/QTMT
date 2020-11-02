@@ -1,7 +1,6 @@
-import tensorflow as tf
-import net_cu as net
+import sys
+sys.path.append("..")
 import h5py
-import input_data_H5 as input_data
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -15,13 +14,41 @@ IMAGES_LENGTH_LIST = [4096, 1024, 256, 512, 64, 256, 128, 32, 128, 64]
 TRAIN_SAMPLE_AMOUNT_LIST = [600,  0,    0,   0,   0,  0,   0,   0,  0,   0 ]
 VALID_SAMPLE_AMOUNT_LIST = [600,  0,    0,   0,   0,  0,   0,   0,  0,   0 ]
 
+TRAIN_SEQS_AMOUNT = 40
+VALID_SEQS_AMOUNT = 26
+# TRAIN_SEQS_AMOUNT = 164
+# VALID_SEQS_AMOUNT = 26
+
+AMOUNT_INFO_PATH = "D:/QTMT/AMOUNT_INFO/"
+
 def get_sample_details(index):
-    size_train = TRAIN_SAMPLE_AMOUNT_LIST[index]
-    size_valid = VALID_SAMPLE_AMOUNT_LIST[index]
     CU_WIDTH = CU_WIDTH_LIST[index]
     CU_HEIGHT = CU_HEIGHT_LIST[index]
     IMAGES_LENGTH = IMAGES_LENGTH_LIST[index]
     # SAMPLE_LENGTH = SAMPLE_LENGTH_LIST[index]
     LABEL_LENGTH = LABEL_LENGTH_LIST[index]
 
-    return size_train, size_valid, CU_WIDTH, CU_HEIGHT, IMAGES_LENGTH, LABEL_LENGTH
+    return  CU_WIDTH, CU_HEIGHT, IMAGES_LENGTH, LABEL_LENGTH
+
+
+def get_train_data_size(cu_name):
+    # h5f_train = h5py.File(TRAIN_AMOUNT_INFO_PATH+'amount_train.h5', 'r')
+    h5f_train = h5py.File(AMOUNT_INFO_PATH+'amount__train.h5', 'r')
+    seq_amount_list = h5f_train[cu_name]
+    total_amount = 0
+
+    for i in range(TRAIN_SEQS_AMOUNT):
+        total_amount = seq_amount_list[i] + total_amount
+
+    return seq_amount_list, total_amount
+
+
+def get_valid_data_size(cu_name):
+    h5f_valid = h5py.File(AMOUNT_INFO_PATH+'amount__valid.h5', 'r')
+    seq_amount_list = h5f_valid[cu_name]
+    total_amount = 0
+
+    for i in range(VALID_SEQS_AMOUNT):
+        total_amount = seq_amount_list[i] + total_amount
+
+    return seq_amount_list, total_amount
