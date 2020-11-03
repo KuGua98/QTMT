@@ -16,7 +16,7 @@ LEARNING_RATE_INIT = 1e-4
 DECAY_RATE = 0.99
 DECAY_STEP = 2000
 
-MINI_BATCH_SIZE = 32
+MINI_BATCH_SIZE = 256
 NUM_CHANNELS = 1
 
 ITER_TIMES = 500000
@@ -43,14 +43,13 @@ images_batch_valid, label_batch_valid, qp_batch_valid \
 
 ######################     net: 64x64       ###########################
 
-# x = tf.placeholder("float", [None, CU_WIDTH, CU_HEIGHT, NUM_CHANNELS])
-# y = tf.placeholder("float", [None, LABEL_LENGTH])
-# qp = tf.placeholder("float", [None, 1])
+x = tf.placeholder("float", [None, CU_WIDTH, CU_HEIGHT, NUM_CHANNELS])
+y = tf.placeholder("float", [None, LABEL_LENGTH])
+qp = tf.placeholder("float", [None, 1])
 global_step = tf.placeholder("float")
 
-
 y_probabilty, y_predict, y_one_hot, total_loss_64x64, accuracy_64x64, learning_rate_current, train_step, opt_vars_all, \
-    opt_vars_res1,opt_vars_res2 = net.net_64x64(images_batch_train, label_batch_train, qp_batch_train, global_step, LEARNING_RATE_INIT, DECAY_RATE, DECAY_STEP)
+    opt_vars_res1,opt_vars_res2 = net.net_64x64(x, y, qp, global_step, LEARNING_RATE_INIT, DECAY_RATE, DECAY_STEP)
 
 
 ######################     feed dict       ###########################
@@ -60,7 +59,7 @@ saver_res1 = tf.train.Saver(opt_vars_res1, write_version=tf.train.SaverDef.V2)
 saver_res2 = tf.train.Saver(opt_vars_res2, write_version=tf.train.SaverDef.V2)
 
 # 或者直接按固定的比例分配。以下代码会占用所有可使用GPU的40%显存。
-config.gpu_options.per_process_gpu_memory_fraction = 0.3
+config.gpu_options.per_process_gpu_memory_fraction = 0.6
 sess = tf.Session(config=config)
 # sess = tf.Session()
 
@@ -73,24 +72,24 @@ for i in range(ITER_TIMES):
     step = i + 1
     feed_step = step
 
-    # time_start_input = time.time()
+    time_start_input = time.time()
 
-    # with tf.device('/gpu:0'):
-    #     images_input, lable_input, qp_input =  sess.run([images_batch_train, label_batch_train, qp_batch_train])
+    with tf.device('/gpu:0'):
+        images_input, lable_input, qp_input =  sess.run([images_batch_train, label_batch_train, qp_batch_train])
 
     time_end_input = time.time()
 
     with tf.device('/gpu:0'):
-        _, learning_rate, loss, accuracy = sess.run([train_step, learning_rate_current, total_loss_64x64, accuracy_64x64],  feed_dict={global_step: feed_step})
+        _, learning_rate, loss, accuracy = sess.run([train_step, learning_rate_current, total_loss_64x64, accuracy_64x64],feed_dict={x: images_input, y: lable_input, qp: qp_input,global_step: feed_step})
     # y, learning_rate , loss, accuracy =sess.run([y_probabilty, learning_rate_current, total_loss_64x64, accuracy_64x64], feed_dict={x:images_input, y: lable_input, qp:qp_input, global_step: feed_step})
 
     time_end_calcu = time.time()
 
-    # time1 = time_end_input - time_start_input
+    time1 = time_end_input - time_start_input
     time2 = time_end_calcu - time_end_input
 
-    # print(time_end_input, time_end_calcu)
-    # print("cal time: %d - %d = %d"%(time_end_input, time_end_calcu, time2))
+    # print(time_start_input , time_end_input, time_end_calcu)
+    # print("input time: %d , cal time: %d"%(time1, time2))
     # print(learning_rate, loss, accuracy)
 
     if step % ITER_TIMES_PER_EVALUATE == 0:
@@ -101,13 +100,13 @@ for i in range(ITER_TIMES):
 
             images_input, lable_input, qp_input = sess.run([images_batch_valid, label_batch_valid, qp_batch_valid])
             # 验证时不更新网络参数
-            loss, accuracy = sess.run([total_loss_64x64, accuracy_64x64],feed_dict={global_step: feed_step})
+            loss, accuracy = sess.run([total_loss_64x64, accuracy_64x64],feed_dict={x: images_input, y: lable_input, qp: qp_input, global_step: feed_step})
             loss_64x64_list.append(loss)
             accuracy_64x64_list.append(accuracy)
 
         loss = sum(loss_64x64_list[0:ITER_TIME_PER_COUNT_ACCURACY]) / ITER_TIME_PER_COUNT_ACCURACY
         accuracy = sum(accuracy_64x64_list[0:ITER_TIME_PER_COUNT_ACCURACY]) / ITER_TIME_PER_COUNT_ACCURACY
-        print("The " + str(i) + " times : loss is " + str(loss) + ",  accuracy is " + str(accuracy) + ", learning_rate is "+str(learning_rate))
+        print("The " + str(step) + " times : loss is " + str(loss) + ",  accuracy is " + str(accuracy) + ", learning_rate is "+str(learning_rate))
 
         # weight = sess.graph.get_tensor_by_name('w_subnet_nc_64_1')
         # bia = sess.graph.get_tensor_by_name('b_subnet_nc_64_1')

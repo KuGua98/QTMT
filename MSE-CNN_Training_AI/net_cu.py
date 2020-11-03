@@ -117,7 +117,6 @@ def net_16x16_32x16(x, y, qp, global_step, learning_rate_init, decay_rate, decay
     y_probabilty = sub.sub_net_16x16_32x16(h_condc, qp)
     y_predict = tf.argmax(y_probabilty, axis=1)  # 返回最大值索引
 
-
     if CU_WIDTH == 16:
         y_one_hot = tf.one_hot(indices=y_predict, depth=6)  # 转换为one—hot vector
         loss_16x16_ce = -tf.reduce_sum(tf.multiply(np.power(p_16x16, adjust_scalar_else).astype(np.float32),tf.multiply(y_image, tf.log(y_probabilty + 1e-12)))) / np.sum(np.power(p_16x16, adjust_scalar_else))
@@ -161,7 +160,6 @@ def net_8x8_16x8_32x8(x, y, qp, global_step, learning_rate_init, decay_rate, dec
     h_condc = res.condc_lumin_8(h_cov)
     y_probabilty = sub.sub_net_8x8_16x8_32x8(h_condc, qp)
     y_predict = tf.argmax(y_probabilty, axis=1)  # 返回最大值索引
-
 
     if CU_WIDTH == 8:
         y_one_hot = tf.one_hot(indices=y_predict, depth=3)  # 转换为one—hot vector
@@ -218,7 +216,6 @@ def net_8x4_16x4_32x4(x, y, qp, global_step, learning_rate_init, decay_rate, dec
     h_condc = res.condc_lumin_4(h_cov)
     y_probabilty = sub.sub_net_8x4_16x4_32x4(h_condc, qp)
     y_predict = tf.argmax(y_probabilty, axis=1)  # 返回最大值索引
-
 
     if CU_WIDTH == 8:
         y_one_hot = tf.one_hot(indices=y_predict, depth=2)  # 转换为one—hot vector
